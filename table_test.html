@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Perform a real-time search on HTML table (Entire & Column Specific)</title>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: green;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>GeeksforGeeks</h1>
+    <h3>Perform a real-time search on an HTML table (Entire & Column Specific)</h3>
+
+    <b>Search the entire table:
+        <input id="entireSearch" type="text" placeholder="Search here">
+    </b>
+
+    <br>
+
+    <b>Search specific column (Course, Duration, or Type):
+        <select id="columnSelect">
+            <option value="al">All Columns</option>
+            <option value="d">Course</option>
+            <option value="1">Duration</option>
+            <option value="Type">Type</option>
+            <option value="123">Type1</option>
+        </select>
+        
+        <input id="columnSearch" type="text" placeholder="Search column">
+        <input class="columnSearch1" type="button" value="d">
+        <input class="columnSearch1" type="button" value="a">
+        
+    </b>
+
+    <table>
+        <tr>
+            <th>Course</th>
+            <th>Duration</th>
+            <th>Type</th>
+            <th>Type1</th>
+        </tr>
+        <tbody id="geeks">
+            <tr>
+                <td>C++ STL</td>
+                <td>1499</td>
+                <td>Online Classes</td>
+                <td>Online Classes1xxxx</td>
+            </tr>
+            <tr>
+                <td>DSA Foundation</td>
+                <td>7999</td>
+                <td>Regular Classes</td>
+                <td>Online Classes1xxxxd</td>
+            </tr>
+            <tr>
+                <td>Geeks Classes</td>
+                <td>10799</td>
+                <td>Weekend Classes</td>
+                <td>Online Classes1xxxx</td>
+            </tr>
+            <tr>
+                <td>Placement 100</td>
+                <td>9999</td>
+                <td>Online Classes</td>
+                <td>Online Classes1x</td>
+            </tr>
+            <tr>
+              <td>xxxxx 100</td>
+              <td>99991x</td>
+              <td>Online Classes1</td>
+              <td>Online Classes1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $("#columnSearch1").on("click", function () {
+                //let entireValue = $("#entireSearch").val().toLowerCase();
+                let columnValue = $("#columnSearch1").val();
+                let selectedColumn = $("#columnSelect").val();
+
+                $("#geeks tr").each(function () {
+                    /*
+                    let rowText = $(this).text().toLowerCase();
+                    // Show all rows if entire search is empty
+                    
+                    let matchEntire = entireValue === ""; 
+                    
+                    if (entireValue !== "") {
+                        matchEntire = rowText.indexOf(entireValue) > -1;
+                    }
+                    */
+                    // Assuming all rows initially match column search
+                    let matchColumn = true; 
+                    if (selectedColumn !== "al" && columnValue !== "") {
+                        let columnData = $(this).find("td:nth-child(" + 
+                        (selectedColumn === "d" ? 1 : 
+                         (selectedColumn === "1" ? 2 : 4)) +
+                         ")").text().toLowerCase();
+                        matchColumn = columnData.indexOf(columnValue) > -1;
+                    }
+
+                    $(this).toggle(matchColumn);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
